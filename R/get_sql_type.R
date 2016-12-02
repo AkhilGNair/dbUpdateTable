@@ -4,7 +4,7 @@ add = function(dt, ...) {
   row_struct = as.list(dt[0])
   row = list(...)
   names(row) = names(row_struct)
-  rbind(dt, row)
+  rbind(as.data.table(row), dt, fill=TRUE)
 }
 
 #' Current implemented datatype handling
