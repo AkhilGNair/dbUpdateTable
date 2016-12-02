@@ -35,7 +35,7 @@ INSERT INTO People (PersonID, LastName, FirstName, Age)
 VALUES (5, "LastName2", "Mandla", 26);
 ```
 
-`mysql> select * from People ;`
+Resulting in
 
 | PersonID | LastName  | FirstName | Age  |
 |----------|-----------|-----------|------|
@@ -46,12 +46,23 @@ VALUES (5, "LastName2", "Mandla", 26);
 ```
 # Create a table with ordered values
 dt_people = copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "LastName1",    "Akhil",  NULL)
-dt_people = dt_people %>% dbCreateTable::add(2, "LastName3",  "Chris",  65)
-dt_people = dt_people %>% dbCreateTable::add(3, "LastName4",  "Lee",    26)
-dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Jones1", 21)
+dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil",  NULL)
+dt_people = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
+dt_people = dt_people %>% dbCreateTable::add(3, "LastName4", "Meldoy", 26)
+dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)
 
 # Append data to table
 # Duplicates of Primary key are ignored
 RMySQL::dbWriteTable(db, "People", dt_people, append = TRUE, row.names = FALSE)
 ```
+
+Resulting in
+
+| PersonID | LastName  | FirstName | Age  |
+|----------|-----------|-----------|------|
+|        1 | LastName1 | Akhil     | NULL |
+|        2 | LastName3 | Chris     |   65 |
+|        3 | LastName4 | Melody    |   26 |
+|        4 | LastName5 | Tim       |   21 |
+|        5 | LastName2 | Mandla    |   26 |
+
