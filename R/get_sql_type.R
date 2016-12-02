@@ -10,7 +10,7 @@ add = function(dt, ...) {
 #' Current implemented datatype handling
 #' @importFrom magrittr "%>%"
 hash_datatypes = data.table::data.table(r_type = character(0), sql_type = character(0))
-hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(M, 3)")
+hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
 hash_datatypes = hash_datatypes %>% add("integer"  , "int")
 hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
 
