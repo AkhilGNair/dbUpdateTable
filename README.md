@@ -1,3 +1,7 @@
+Easily update keyed tables in MySQL from R without duplicating data
+
+ - Create the Model in R
+```
 library(magrittr)
 
 model_People = data.table::data.table(
@@ -7,30 +11,36 @@ model_People = data.table::data.table(
   Age = numeric(0),
   key = c("PersonID", "LastName")
 )
+```
+ - Connect to the database
+ - Build the query
+ - Insert the query
 
-# Build the create table query
-create_query = dbCreateTable::create(model_People)
-
+```
 # database configuration in ~/.my.cnf
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
-
-# Sync the database model to the database
+create_query = dbCreateTable::create(model_People)
 RMySQL::dbGetQuery(db, create_query)
+```
+Sample SQL data to insert into the built table from the command line, or other
+```
+INSERT INTO People (PersonID, LastName, FirstName)
+VALUES (1, "LastName1", "Akhil");
 
-# Sample SQL inserts
-# INSERT INTO People (PersonID, LastName, FirstName)
-# VALUES (1, "Nair", "Akhil");
-#
-# INSERT INTO People (PersonID, LastName, FirstName, Age)
-# VALUES (5, "Mandla", "Moyo", 26);
+INSERT INTO People (PersonID, LastName, FirstName, Age)
+VALUES (5, "LastName2", "Mandla", 26);
+```
 
+ - Sync update to table
+```
 # Create a table with ordered values
 dt_people = copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "Nair",    "Akhil",  NULL)
-dt_people = dt_people %>% dbCreateTable::add(2, "Beedie",  "Chris",  65)
-dt_people = dt_people %>% dbCreateTable::add(3, "Melody",  "Lee",    26)
-dt_people = dt_people %>% dbCreateTable::add(4, "Timothy", "Jones1", 21)
+dt_people = dt_people %>% dbCreateTable::add(1, "LastName1",    "Akhil",  NULL)
+dt_people = dt_people %>% dbCreateTable::add(2, "LastName3",  "Chris",  65)
+dt_people = dt_people %>% dbCreateTable::add(3, "LastName4",  "Lee",    26)
+dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Jones1", 21)
 
 # Append data to table
 # Duplicates of Primary key are ignored
-RMySQL::dbWriteTable(db, "People", as.data.frame(dt_people), append = TRUE, row.names = FALSE)
+RMySQL::dbWriteTable(db, "People", dt_people, append = TRUE, row.names = FALSE)
+```
