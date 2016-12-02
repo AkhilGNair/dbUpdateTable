@@ -1,4 +1,6 @@
-# Easily update keyed tables in MySQL from R without duplicating data
+# dbCreateTable
+
+#### Easily update keyed tables in MySQL from R without duplicating data
 
 The only purpose of this library is to create a table before we start inserting data into it, such that it can be keyed.  As it is keyed, duplicate keys are ignored in the insert.
 
@@ -24,7 +26,7 @@ db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
 create_query = dbCreateTable::create(model_People)
 RMySQL::dbGetQuery(db, create_query)
 ```
-Sample SQL data to insert into the built table from the command line, or other
+Sample SQL data to insert into the built table from the command line or other
 ```
 INSERT INTO People (PersonID, LastName, FirstName)
 VALUES (1, "LastName1", "Akhil");
@@ -32,6 +34,13 @@ VALUES (1, "LastName1", "Akhil");
 INSERT INTO People (PersonID, LastName, FirstName, Age)
 VALUES (5, "LastName2", "Mandla", 26);
 ```
+
+`mysql> select * from People ;`
+
+| PersonID | LastName  | FirstName | Age  |
+|----------|-----------|-----------|------|
+|        1 | LastName1 | Akhil     | NULL |
+|        5 | LastName2 | Mandla    |   26 |
 
  - Sync update to table
 ```
