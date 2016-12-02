@@ -10,7 +10,8 @@ create = function(model, verbose = TRUE) {
     stop("Model object name must be prefixed with 'model_', e.g. 'model_People'")
   }
   # Get table name to insert
-  str_name = stringr::str_extract(str_name, "(?<=model_)[[:alpha:]]+")
+  str_table_name = stringr::str_extract(str_name, "(?<=model_)[[:alpha:]]+")
+  str_start_create = str_table_name %>% get_start_create()
 
   # Parse data.table to creat CREATE TABLE query
   str_structure = vapply(model, class, FUN.VALUE = character(1))
@@ -20,22 +21,21 @@ create = function(model, verbose = TRUE) {
   str_variables = dt_structure %>% get_query_variables()
 
   # Get the primary key
-  str_pk = get_pk(model)
+  str_pk = model %>% get_pk()
 
   if(verbose) {
-    writeLines(create_statement(statement_start, "\n"))
+    writeLines(str_table_name %>% get_start_create("\n"))
     writeLines(dt_structure %>% get_query_variables(sep = "\n"))
-    writeLines(get_pk(model, "  "))
-    writeLines(create_statement(statement_end))
+    writeLines(model %>% get_pk("  "))
+    writeLines(get_end_create())
   }
 
   # Add query boiler plate
-  paste0(create_statement(statement_start), str_variables, str_pk, create_statement(statement_end))
+  paste0(str_start_create, str_variables, str_pk, get_end_create())
 }
 
-create_statement = function(statement, sep = " ", spacer = "") {
-  if(sep == "\n") spacer = "  "
-  sprintf(statement, sep, spacer)
+get_start_create = function(table_name, sep = " ", spacer = " ") {
+  sprintf(statement_start, table_name, sep, spacer)
 }
 
 get_query_variables = function(dt, sep = " ", spacer = "") {
@@ -52,6 +52,10 @@ get_pk = function(dt, spacer = " ") {
   paste0(spacer, str_pk)
 }
 
-statement_start = "CREATE TABLE IF NOT EXISTS People%s(%s"
-statement_end = ");"
+get_end_create = function() {
+  statement_end
+}
+
+statement_start = "CREATE TABLE IF NOT EXISTS %s%s(%s"
 statement_key = "PRIMARY KEY(%s)"
+statement_end = ");"
