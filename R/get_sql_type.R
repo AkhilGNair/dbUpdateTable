@@ -1,5 +1,6 @@
 #' Add a row to a data.table
 #' @import data.table
+#' @export
 add = function(dt, ...) {
   row_struct = as.list(dt[0])
   row = list(...)
