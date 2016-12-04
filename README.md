@@ -22,9 +22,10 @@ model_People = data.table::data.table(
 
 ```
 # database configuration in ~/.my.cnf
+library(RMySQL)
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
 create_query = dbCreateTable::create(model_People)
-RMySQL::dbGetQuery(db, create_query)
+dbGetQuery(db, create_query)
 ```
 Sample SQL data to insert into the built table from the command line or other
 ```

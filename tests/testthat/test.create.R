@@ -12,7 +12,7 @@ model_Test = data.table::data.table(
   key = "a"
 )
 
-people_query = "CREATE TABLE IF NOT EXISTS People ( PersonID decimal(10, 3), LastName varchar(255), FirstName varchar(255), Age decimal(10, 3), PRIMARY KEY(PersonID, LastName) );"
+people_query = "CREATE TABLE IF NOT EXISTS People ( PersonID int, LastName varchar(255), FirstName varchar(255), Age decimal(10, 3), PRIMARY KEY(PersonID, LastName) );"
 people_table_name = "CREATE TABLE IF NOT EXISTS People"
 people_variables = "PersonID int, LastName varchar\\(255\\), FirstName varchar\\(255\\), Age decimal\\(10, 3\\),"
 people_primary_key = "PRIMARY KEY\\(PersonID, LastName\\)"
