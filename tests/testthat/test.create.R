@@ -2,7 +2,7 @@ model_People = data.table::data.table(
   PersonID = integer(0),
   LastName = character(0),
   FirstName = character(0),
-  Age = integer(0),
+  Age = numeric(0),
   key = c("PersonID", "LastName")
 )
 
@@ -12,12 +12,12 @@ model_Test = data.table::data.table(
   key = "a"
 )
 
-people_query = "CREATE TABLE IF NOT EXISTS People ( PersonID int, LastName varchar(255), FirstName varchar(255), Age int, PRIMARY KEY(PersonID, LastName));"
+people_query = "CREATE TABLE IF NOT EXISTS People ( PersonID decimal(10, 3), LastName varchar(255), FirstName varchar(255), Age decimal(10, 3), PRIMARY KEY(PersonID, LastName) );"
 people_table_name = "CREATE TABLE IF NOT EXISTS People"
-people_variables = "PersonID int, LastName varchar\\(255\\), FirstName varchar\\(255\\), Age int,"
+people_variables = "PersonID int, LastName varchar\\(255\\), FirstName varchar\\(255\\), Age decimal\\(10, 3\\),"
 people_primary_key = "PRIMARY KEY\\(PersonID, LastName\\)"
 
-test_query = "CREATE TABLE IF NOT EXISTS Test ( a varchar(255), c int, PRIMARY KEY(a));"
+test_query = "CREATE TABLE IF NOT EXISTS Test ( a varchar(255), c int, PRIMARY KEY(a) );"
 test_table_name = "CREATE TABLE IF NOT EXISTS Test"
 test_variables = "a varchar\\(255\\), c int,"
 test_primary_key = "PRIMARY KEY\\(a\\)"

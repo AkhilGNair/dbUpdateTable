@@ -8,7 +8,8 @@ Depends:
 Imports:
     data.table,
     magrittr,
-    stringr
+    stringr,
+    gsubfn
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

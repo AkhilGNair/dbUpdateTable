@@ -2,10 +2,32 @@
 #' @import data.table
 #' @export
 add = function(dt, ...) {
+  # Init return param to catch exceptions
+  dt_bound = NULL
+
   row_struct = as.list(dt[0])
   row = list(...)
-  names(row) = names(row_struct)
-  rbind(as.data.table(row), dt, fill=TRUE)
+
+  # If a list is passed, unnest it
+  if(class(row[[1]]) == "list") row = row[[1]]
+
+  names_row_struct = names(row_struct)
+  names_list = names(row)
+
+  # Ordered parameters supplied
+  if(is.null(names_list) & (length(row) == length(names_row_struct))) {
+    names(row) = names_row_struct
+    dt_bound = rbind(dt, as.data.table(row))
+  }
+
+  # Named parameters supplied
+  if(sum(names_list %in% names_row_struct) > 0) {
+    dt_bound = rbind(dt, as.data.table(row), fill = TRUE)
+  }
+
+  if(is.null(dt_bound)) stop("Unexpected columns supplied")
+
+  return(dt_bound)
 }
 
 #' Current implemented datatype handling

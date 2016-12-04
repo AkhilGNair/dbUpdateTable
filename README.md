@@ -45,8 +45,8 @@ Resulting in
  - Sync update to table
 ```
 # Create a table with ordered values
-dt_people = copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil",  NULL)
+dt_people = data.table::copy(model_People)
+dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil")
 dt_people = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
 dt_people = dt_people %>% dbCreateTable::add(3, "LastName4", "Meldoy", 26)
 dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)

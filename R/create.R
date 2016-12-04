@@ -11,8 +11,8 @@ create = function(model, verbose = TRUE) {
   }
   # Get table name to insert
   str_table_name = stringr::str_extract(str_name, "(?<=model_)[[:alpha:]]+")
-  str_start_create = str_table_name %>% get_start_create()
 
+  # Get variables
   # Parse data.table to creat CREATE TABLE query
   str_structure = vapply(model, class, FUN.VALUE = character(1))
   dt_structure = data.table(colname = names(str_structure), type = str_structure)
@@ -23,19 +23,25 @@ create = function(model, verbose = TRUE) {
   # Get the primary key
   str_pk = model %>% get_pk()
 
+  # Construct insert statement
+  statement = "CREATE TABLE IF NOT EXISTS %(table_name)s ( %(variables)s PRIMARY KEY(%(primary_key)s) );"
+  params = list(table_name  = str_table_name,
+                variables   = str_variables,
+                primary_key = str_pk)
+  # Insert constructe values
+  statement = statement %format% params
+
   if(verbose) {
-    writeLines(str_table_name %>% get_start_create("\n"))
-    writeLines(dt_structure %>% get_query_variables(sep = "\n"))
-    writeLines(model %>% get_pk("  "))
-    writeLines(get_end_create())
+    console_log = statement
+    console_log = stringr::str_replace_all(console_log, " \\( ", "\n\\(\n  ")
+    console_log = stringr::str_replace_all(console_log, ", (?=[A-Z].+PRIMARY)", ",\n  ")
+    console_log = stringr::str_replace(console_log, ", PRIMARY KEY", ",\n  PRIMARY KEY")
+    console_log = stringr::str_replace(console_log, " \\);", "\n\\);")
+    writeLines(console_log)
   }
 
-  # Add query boiler plate
-  paste0(str_start_create, str_variables, str_pk, get_end_create())
-}
-
-get_start_create = function(table_name, sep = " ", spacer = " ") {
-  sprintf(statement_start, table_name, sep, spacer)
+  # return
+  statement
 }
 
 get_query_variables = function(dt, sep = " ", spacer = "") {
@@ -47,15 +53,7 @@ get_query_variables = function(dt, sep = " ", spacer = "") {
 
 get_pk = function(dt, spacer = " ") {
   str_pk = paste0(data.table::key(dt), collapse = ", ")
-  str_pk = sprintf(statement_key, str_pk)
-  if (str_pk == "PRIMARY KEY()") stop("Model has no primary key")
-  paste0(spacer, str_pk)
+  # str_pk = sprintf(statement_key, str_pk)
+  if (str_pk == "") stop("Model has no primary key")
+  str_pk
 }
-
-get_end_create = function() {
-  statement_end
-}
-
-statement_start = "CREATE TABLE IF NOT EXISTS %s%s(%s"
-statement_key = "PRIMARY KEY(%s)"
-statement_end = ");"
