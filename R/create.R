@@ -33,7 +33,7 @@ create = function(model, verbose = TRUE) {
 
   if(verbose) {
     console_log = statement
-    console_log = stringr::str_replace_all(console_log, " \\( ", "\n\\(\n  ")
+    console_log = stringr::str_replace(console_log, " \\( ", "\n\\(\n  ")
     console_log = stringr::str_replace_all(console_log, ", (?=[A-Z].+PRIMARY)", ",\n  ")
     console_log = stringr::str_replace(console_log, ", PRIMARY KEY", ",\n  PRIMARY KEY")
     console_log = stringr::str_replace(console_log, " \\);", "\n\\);")
