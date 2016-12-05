@@ -1,4 +1,4 @@
-#' %format% infix to format strings via named paramters
+#' Infix to format strings via named paramters
 #'
 #' @param fmt A string to format
 #' @param list A list of named parameters
