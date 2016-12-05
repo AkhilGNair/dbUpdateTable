@@ -19,3 +19,4 @@ Collate:
     'utils.R'
     'get_sql_type.R'
     'dbSyncTableR.R'
+    'dbUpdateTable.R'
