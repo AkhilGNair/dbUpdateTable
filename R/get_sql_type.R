@@ -39,7 +39,6 @@ hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
 
 data.table::setkey(hash_datatypes, "r_type")
 
-#' @export
 get_sql_type = function(type, dt = hash_datatypes) {
   dt[type, sql_type]
 }

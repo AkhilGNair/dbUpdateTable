@@ -1,7 +1,18 @@
 #' A function to create a query to create keyed data.tables into a MySQL database
 
 #' @export
-create = function(model, verbose = TRUE) {
+dbSyncTable = function(con, model, ...) {
+  create_query = dbCreateTable::create(model_People, ...)
+  res = RMySQL::dbSendQuery(con, create_query)
+  RMySQL::dbFetch(res)
+  RMySQL::dbClearResult(res)
+  TRUE
+}
+
+#' @include get_sql_type.R
+#' @include utils.R
+#' @export
+create = function(model, verbose = FALSE) {
 
   # Get model name
   str_name = deparse(substitute(model))
