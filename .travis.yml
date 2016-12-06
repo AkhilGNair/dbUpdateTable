@@ -1,7 +1,7 @@
 sudo: false
 language: r
 cache: packages
-warnings_as_errors: false
+warnings_are_errors: false
 
 r:
   - 3.3.2
