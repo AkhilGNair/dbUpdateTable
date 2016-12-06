@@ -5,5 +5,11 @@ cache: packages
 r:
   - 3.3.2
 
+addons:
+  apt:
+    packages:
+      - tcl8.5-dev
+      - tk8.5-dev
+
 services:
   - mysql
