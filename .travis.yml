@@ -1,6 +1,7 @@
 sudo: false
 language: r
 cache: packages
+warnings_as_errors: false
 
 r:
   - 3.3.2
@@ -8,9 +9,12 @@ r:
 services:
   - mysql
 
-before_install:
-  - Rscript -e 'install.packages("tcltk", "/home/travis/R-bin/lib/R/library/")'
-
+addons:
+   apt:
+     packages:
+       - tcl8.5-dev
+       - tk8.5-dev
+ 
 before_script:
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
   - printf "[MySQL]\nusername=travis\ndatabase=TestdbCreateTable\nhost=localhost\n" > ~/.my.cnf
