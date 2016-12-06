@@ -8,6 +8,9 @@ r:
 services:
   - mysql
 
+before_install:
+  - Rscript -e 'install.packages("tcltk")'
+
 before_script:
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
   - printf "[MySQL]\nusername=travis\ndatabase=TestdbCreateTable\nhost=localhost\n" > ~/.my.cnf
