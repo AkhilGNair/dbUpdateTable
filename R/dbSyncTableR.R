@@ -2,20 +2,26 @@
 
 #' @export
 dbSyncTable = function(con, model, ...) {
-  create_query = dbCreateTable::create(model_People, ...)
-  res = RMySQL::dbSendQuery(con, create_query)
-  RMySQL::dbFetch(res)
-  RMySQL::dbClearResult(res)
+  str_name = deparse(substitute(model))
+  create_query = dbCreateTable::create(model = model, name = str_name, ...)
+  DBI::dbGetQuery(con, create_query)
   TRUE
 }
 
 #' @include get_sql_type.R
 #' @include utils.R
 #' @export
-create = function(model, verbose = FALSE) {
+create = function(model, verbose = TRUE, ...) {
 
-  # Get model name
+  # Handle dots
+  dots = list(...)
+  # Carry debug flag forward from dbSyncTable
+  if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
+
+  # Carry model name forward from dbSyncTable
   str_name = deparse(substitute(model))
+  if("name" %in% names(dots)) str_name = dots[["name"]]
+
   # Check is model name conforms to name that can be parsed, and db inserted
   if (!stringr::str_detect(str_name, "^model_")) {
     stop("Model object name must be prefixed with 'model_', e.g. 'model_People'")
