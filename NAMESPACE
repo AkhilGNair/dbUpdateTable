@@ -3,6 +3,7 @@
 export("%format%")
 export(add)
 export(create)
-export(get_sql_type)
+export(dbGetKey)
+export(dbSyncTable)
 import(data.table)
 importFrom(magrittr,"%>%")

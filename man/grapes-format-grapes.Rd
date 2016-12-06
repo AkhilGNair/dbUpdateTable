@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{\%format\%}
 \alias{\%format\%}
-\title{%format% infix to format strings via named paramters}
+\title{Infix to format strings via named paramters}
 \usage{
 fmt \%format\% list
 }
@@ -12,7 +12,7 @@ fmt \%format\% list
 \item{list}{A list of named parameters}
 }
 \description{
-%format% infix to format strings via named paramters
+Infix to format strings via named paramters
 }
 \examples{
 parameters <- list(label = "months", april = 4, may = 5, june = 6)
