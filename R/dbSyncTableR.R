@@ -3,14 +3,18 @@
 #' @export
 dbSyncTable = function(con, model, ...) {
   create_query = dbCreateTable::create(model_People, ...)
-  RMySQL:::dbGetQuery(con, create_query)
+  DBI::dbGetQuery(con, create_query)
   TRUE
 }
 
 #' @include get_sql_type.R
 #' @include utils.R
 #' @export
-create = function(model, verbose = FALSE) {
+create = function(model, verbose = TRUE, ...) {
+
+  # Carry debug flag forward
+  dots = list(...)
+  if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
   # Get model name
   str_name = deparse(substitute(model))

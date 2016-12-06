@@ -1,3 +1,4 @@
+context("Query creation")
 model_People = data.table::data.table(
   PersonID = integer(0),
   LastName = character(0),
@@ -25,16 +26,14 @@ test_primary_key = "PRIMARY KEY\\(a\\)"
 people_created_query = create(model_People, verbose = FALSE)
 test_created_query = create(model_Test, verbose = FALSE)
 
-context("Create People query")
-test_that("the query is created correctly", {
+test_that("People query is created correctly", {
   expect_true(stringr::str_detect(people_created_query, people_table_name))
   expect_true(stringr::str_detect(people_created_query, people_variables))
   expect_true(stringr::str_detect(people_created_query, people_primary_key))
   expect_equal(people_created_query, people_query)
 })
 
-context("Create Test query")
-test_that("the query is created correctly", {
+test_that("Another query is created correctly", {
   expect_true(stringr::str_detect(test_created_query, test_table_name))
   expect_true(stringr::str_detect(test_created_query, test_variables))
   expect_true(stringr::str_detect(test_created_query, test_primary_key))

@@ -35,7 +35,7 @@ expected_test5  = data.table::data.table(PersonID = c(1, 7),
                                          FirstName = c(NA_character_, NA_character_),
                                          Age = c(NA_real_, NA_real_))
 
-context("Table inserts work correctly")
+context("data.table inserts work correctly")
 test_that("Can add ordered unnamed variables", {
   expect_equal(test1, expected_test1)
 })
