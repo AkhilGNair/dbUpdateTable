@@ -9,7 +9,7 @@ services:
   - mysql
 
 before_install:
-  - Rscript -e 'install.packages("tcltk")'
+  - Rscript -e 'install.packages("tcltk", "/home/travis/R-bin/lib/R/library/")'
 
 before_script:
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
