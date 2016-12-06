@@ -1,4 +1,4 @@
-context("Query creation")
+context("query creation")
 model_People = data.table::data.table(
   PersonID = integer(0),
   LastName = character(0),

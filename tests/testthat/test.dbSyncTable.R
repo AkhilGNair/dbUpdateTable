@@ -1,4 +1,3 @@
-context("sync to database preserves key when read")
 # Login details at ~/.my.cnf
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
 
@@ -14,6 +13,7 @@ model_People = data.table::data.table(
 # sync model to db
 dbSyncTable(db, model_People, verbose = FALSE)
 
+context("sync to database preserves key when read")
 # read back column names and key to check correct syncing
 dt = suppressWarnings(RMySQL::dbReadTable(db, "People"))
 col_names = colnames(dt)

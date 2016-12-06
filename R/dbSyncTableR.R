@@ -2,7 +2,8 @@
 
 #' @export
 dbSyncTable = function(con, model, ...) {
-  create_query = dbCreateTable::create(model_People, ...)
+  str_name = deparse(substitute(model))
+  create_query = dbCreateTable::create(model = model, name = str_name, ...)
   DBI::dbGetQuery(con, create_query)
   TRUE
 }
@@ -12,12 +13,15 @@ dbSyncTable = function(con, model, ...) {
 #' @export
 create = function(model, verbose = TRUE, ...) {
 
-  # Carry debug flag forward
+  # Handle dots
   dots = list(...)
+  # Carry debug flag forward from dbSyncTable
   if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
-  # Get model name
+  # Carry model name forward from dbSyncTable
   str_name = deparse(substitute(model))
+  if("name" %in% names(dots)) str_name = dots[["name"]]
+
   # Check is model name conforms to name that can be parsed, and db inserted
   if (!stringr::str_detect(str_name, "^model_")) {
     stop("Model object name must be prefixed with 'model_', e.g. 'model_People'")
