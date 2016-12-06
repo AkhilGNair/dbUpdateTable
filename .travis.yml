@@ -13,3 +13,8 @@ addons:
 
 services:
   - mysql
+
+before_script:
+  - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
+  - mysql -e "CREATE USER 'akhil'@'localhost' IDENTIFIED BY 'ohgodpleasedontlook';" -uroot
+  - printf "[MySQL]\nusername=akhil\npassword=ohgodpleasedontlook\n" > ~/.my.cnf
