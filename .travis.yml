@@ -9,12 +9,7 @@ r:
 services:
   - mysql
 
-addons:
-   apt:
-     packages:
-       - tcl8.5-dev
-       - tk8.5-dev
- 
 before_script:
+  - Rscript -e "capabilities()"
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
   - printf "[MySQL]\nusername=travis\ndatabase=TestdbCreateTable\nhost=localhost\n" > ~/.my.cnf
