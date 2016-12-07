@@ -1,10 +1,16 @@
 sudo: false
 language: r
 cache: packages
-warnings_are_errors: false
+warnings_are_errors: true
 
 r:
   - 3.3.2
+
+addons:
+  apt:
+    packages:
+      - tcl8.6-dev
+      - tk8.6-dev
 
 services:
   - mysql
