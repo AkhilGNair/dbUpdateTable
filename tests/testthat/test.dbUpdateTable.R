@@ -25,3 +25,6 @@ dt_people = dt_people %>% dbCreateTable::add(5, "LastName5", "Rich",   30)
 dt_people[PersonID == 3, Age := 18]
 
 dbUpdateTable(db, "People", dt_people)
+
+dbRemoveTable(db, "People")
+dbDisconnect(db)

@@ -22,7 +22,7 @@ dbDeleteRowByKey = function(con, name, dt, ...) {
   # Insert parameters into query
   query = query %format% list(name = name, pk = str_pk, tups = str_delete_keys)
   # Dispatch query
-  DBI::dbGetQuery(db, query)
+  DBI::dbGetQuery(con, query)
   TRUE
 }
 

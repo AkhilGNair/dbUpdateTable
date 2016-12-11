@@ -38,8 +38,10 @@ test_that("Duplicate data was not added", {
 test_that("Insert IGNORES on duplicate key", {
   RMySQL::dbWriteTable(db, "People", dt_people, append = TRUE, row.names = FALSE)
   dt_people_read = suppressWarnings(RMySQL::dbReadTable(db, "People"))
+  dt_people_read = data.table::as.data.table(dt_people_read)
+  setkeyv(dt_people_read, c("PersonID", "LastName"))
 
-  expect_equal(dt_people, data.table::as.data.table(dt_people_read))
+  expect_equal(dt_people, dt_people_read)
   expect_false(all(data.table::as.data.table(dt_people_edit) == data.table::as.data.table(dt_people_read)))
 })
 
@@ -49,12 +51,14 @@ test_that("Preserved old data and adds new row", {
 
   RMySQL::dbWriteTable(db, "People", dt_people_edit, append = TRUE, row.names = FALSE)
   dt_people_read = suppressWarnings(RMySQL::dbReadTable(db, "People"))
+  dt_people_read = data.table::as.data.table(dt_people_read)
+  setkeyv(dt_people_read, c("PersonID", "LastName"))
 
   # Test original data unaltered
-  expect_equal(dt_people, data.table::as.data.table(dt_people_read)[1:3])
+  expect_equal(dt_people, dt_people_read[1:3])
   for(i in 1:length(new_row)) {
     # Test returned values are correct for newly added row
-    expect_equal(new_row[[i]], as.list(data.table::as.data.table(dt_people_read)[4])[[i]])
+    expect_equal(new_row[[i]], as.list(dt_people_read[4])[[i]])
   }
 })
 
