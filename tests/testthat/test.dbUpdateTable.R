@@ -26,5 +26,5 @@ dt_people[PersonID == 3, Age := 18]
 
 dbUpdateTable(db, "People", dt_people)
 
-dbRemoveTable(db, "People")
-dbDisconnect(db)
+RMySQL::dbRemoveTable(db, "People")
+RMySQL::dbDisconnect(db)

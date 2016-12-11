@@ -4,6 +4,7 @@
 #' @param name A MySQL table name
 #' @param dt A keyed data.table with data to update in \code{name}
 #'
+#' @include dbDeleteRowByKey.R
 #' @export
 
 dbUpdateTable = function(con, name, dt, ...) {
@@ -13,11 +14,11 @@ dbUpdateTable = function(con, name, dt, ...) {
   dots = list(...)
   if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
-  dbDeleteRowByKey(con, name, dt)
+  dbCreateTable::dbDeleteRowByKey(con, name, dt)
   if(verbose) message("Updating")
 
-  dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
+  RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
   if(verbose) message("Updated")
 
-    TRUE
+  TRUE
 }

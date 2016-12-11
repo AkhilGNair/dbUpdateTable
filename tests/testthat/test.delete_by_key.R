@@ -18,12 +18,12 @@ dt_letters = data.table::CJ(key1 = letters,
                             key2 = LETTERS,
                             key3 = month.name,
                             key4 = month.abb)
-dbWriteTable(db, "Letters", dt_letters, row.names = FALSE, append = TRUE)
+RMySQL::dbWriteTable(db, "Letters", dt_letters, row.names = FALSE, append = TRUE)
 write_time = proc.time() - ptm
 
 ptm = proc.time()
 dbDeleteRowByKey(db, "Letters", dt_letters[sample(1:.N, 50000)])
 delete_time = proc.time() - ptm
 
-dbRemoveTable(db, "Letters")
-dbDisconnect(db)
+RMySQL::dbRemoveTable(db, "Letters")
+RMySQL::dbDisconnect(db)
