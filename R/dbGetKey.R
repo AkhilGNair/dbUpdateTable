@@ -13,5 +13,10 @@ dbGetKey = function(con, name, ...) {
   # Construct parameters
   params = list(db = schema_name, table = name)
   # Dispatch statement
-  DBI::dbGetQuery(con, query %format% params)[, "COLUMN_NAME"]
+  pks = DBI::dbGetQuery(con, query %format% params)[, "COLUMN_NAME"]
+
+  # Ensure queried mysql table is keyed
+  if(length(pks) == 0) stop("No primary key found for mysql table %(name)s" %format% list(name = name))
+
+  pks
 }

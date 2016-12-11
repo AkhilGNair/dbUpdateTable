@@ -27,6 +27,8 @@ add = function(dt, ...) {
 
   if(is.null(dt_bound)) stop("Unexpected columns supplied")
 
+  data.table::setkeyv(dt_bound, data.table::key(dt))
+
   return(dt_bound)
 }
 

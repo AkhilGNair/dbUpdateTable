@@ -43,7 +43,7 @@ test_that("Insert IGNORES on duplicate key", {
   expect_false(all(data.table::as.data.table(dt_people_edit) == data.table::as.data.table(dt_people_read)))
 })
 
-test_that("Adds new row", {
+test_that("Preserved old data and adds new row", {
   new_row = list(6, "LastName6", "Rebecca", 21)
   dt_people_edit = dt_people_edit %>% dbCreateTable::add(new_row)
 

@@ -1,16 +1,23 @@
-#' Delete rows of a keyed table
+#' Update rows of a keyed table via DELETE + INSERT
 #'
-#' Helper function for dbUpdateTable
+#' @param con A MySQL connection
+#' @param name A MySQL table name
+#' @param dt A keyed data.table with data to update in \code{name}
+#'
+#' @export
 
-dbDeleteRowByKey = function(con, name, dt, ...) {
-  # Construct main statement
-  query = "DELETE FROM %(name)s
-           WHERE (%(pk)s)
-             IN (%(tups)s) ;"
+dbUpdateTable = function(con, name, dt, ...) {
 
-  # Statement boilerplate to select keys from information schema
-  pk = dbGetKey(con, name)
-  str_pk = paste0(pk, collapse = ", ")
+  # Switches for dots
+  verbose = FALSE
+  dots = list(...)
+  if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
+  dbDeleteRowByKey(con, name, dt)
+  if(verbose) message("Updating")
 
+  dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
+  if(verbose) message("Updated")
+
+    TRUE
 }
