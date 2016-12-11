@@ -11,11 +11,15 @@ addons:
     packages:
       - tcl8.5-dev
       - tk8.5-dev
+      - xvfb
+      - xauth
+      - xfonts-base
 
 services:
   - mysql
 
 before_script:
-  - Rscript -e "capabilities()"
+  - Xvfb :0 -ac -screen 0 1960x2000x24 &
+  - Rscript -e "Sys.setenv('DISPLAY'=':0')"
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
   - printf "[MySQL]\nusername=travis\ndatabase=TestdbCreateTable\nhost=localhost\n" > ~/.my.cnf
