@@ -14,7 +14,7 @@ dbUpdateTable = function(con, name, dt, ...) {
   dots = list(...)
   if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
-  dbCreateTable::dbDeleteRowByKey(con, name, dt)
+  dbCreateTable:::dbDeleteRowByKey(con, name, dt)
   if(verbose) message("Updating")
 
   RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
