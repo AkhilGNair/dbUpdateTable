@@ -1,6 +1,6 @@
 # dbCreateTable
 
-[![Build Status](https://travis-ci.org/AkhilNairAmey/dbCreateTable.svg?branch=master)]
+![Build Status](https://travis-ci.org/AkhilNairAmey/dbCreateTable.svg?branch=master)
 
 #### Easily update keyed tables in MySQL from R without duplicating data
 
