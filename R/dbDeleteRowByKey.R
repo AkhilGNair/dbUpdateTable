@@ -16,7 +16,7 @@ dbDeleteRowByKey = function(con, name, dt, ...) {
   delete_keys = quote_string_cols(delete_keys)
 
   # Format keys to insert into query
-  str_delete_keys = delete_keys[, .(tup = paste0(.SD, collapse = ", ")), by = rownames(delete_keys)][, tup]
+  str_delete_keys = delete_keys[, .id := 1:.N][, .(tup = paste0(.SD, collapse = ", ")), by = .id][, tup]
   str_delete_keys = paste0("(", paste0(str_delete_keys, collapse = "), ("), ")")
 
   # Insert parameters into query
