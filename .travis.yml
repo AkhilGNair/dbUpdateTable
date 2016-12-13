@@ -11,15 +11,15 @@ addons:
     packages:
       - tcl8.5-dev
       - tk8.5-dev
-      - xvfb
-      - xauth
-      - xfonts-base
 
 services:
   - mysql
 
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
 before_script:
-  - Xvfb :0 -ac -screen 0 1960x2000x24 &
-  - Rscript -e "Sys.setenv('DISPLAY'=':0')"
+  - Rscript -e "capabilities()"
   - mysql -e "create database IF NOT EXISTS TestdbCreateTable;" -uroot
   - printf "[MySQL]\nusername=travis\ndatabase=TestdbCreateTable\nhost=localhost\n" > ~/.my.cnf
