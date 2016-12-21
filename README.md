@@ -11,7 +11,7 @@ The only purpose of this library is to create a table before we start inserting 
 library(magrittr)
 
 model_People = data.table::data.table(
-  PersonID = numeric(0),
+  PersonID = integer(0),
   LastName = character(0),
   FirstName = character(0),
   Age = integer(0),
@@ -87,9 +87,9 @@ Resulting in the passed rows being updated
  
 | PersonID | LastName  | FirstName | Age  |
 |----------|-----------|-----------|------|
-|    1.000 | LastName1 | Akhil     |   10 |
-|    2.000 | LastName3 | Chris     |   65 |
-|    3.000 | LastName4 | Meldoy    |   26 |
-|    4.000 | LastName5 | Tim       |   21 |
-|    5.000 | LastName2 | Mandla    |   26 |
+|    1     | LastName1 | Akhil     |   10 |
+|    2     | LastName3 | Chris     |   65 |
+|    3     | LastName4 | Meldoy    |   26 |
+|    4     | LastName5 | Tim       |   21 |
+|    5     | LastName2 | Mandla    |   26 |
 
