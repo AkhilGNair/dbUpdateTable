@@ -1,3 +1,5 @@
+#' dbUpdateTable
+#'
 #' Update rows of a keyed table via DELETE + INSERT
 #'
 #' @param con A MySQL connection

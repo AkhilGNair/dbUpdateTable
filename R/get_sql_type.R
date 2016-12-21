@@ -1,9 +1,11 @@
 #' Add
 #'
 #' Add a row to a data.table - mainly for internal use and testing
-#' @import data.table
+#'
 #' @param dt a \code{data.table} to add a row to
 #' @param ... Versatile handler for the row, a list or multiple parameters
+#'
+#' @import data.table
 #' @export
 add = function(dt, ...) {
   # Init return param to catch exceptions

@@ -1,9 +1,11 @@
 #' dbSyncTable and Create
 #'
 #' A convenience function to use create to directly sync a model to the database
+#'
 #' @param con A database connection
 #' @param model A \code{data.table} model - by convention is prefaced with \code{model_}
 #' @param ... Convenience way to pass optional arguments to pass to Create
+#'
 #' @export
 dbSyncTable = function(con, model, ...) {
   str_name = deparse(substitute(model))
@@ -12,12 +14,16 @@ dbSyncTable = function(con, model, ...) {
   TRUE
 }
 
+#' Create
+#'
 #' Create a query to which when executed will create keyed data.tables in a MySQL database
-#' @include get_sql_type.R
-#' @include utils.R
+#'
 #' @param model A \code{data.table} model - by convention is prefaced with \code{model_}
 #' @param verbose Boolean to control printing of created statement
 #' @param ... Carry parameters forward from dbSyncTable
+#'
+#' @include get_sql_type.R
+#' @include utils.R
 #' @export
 create = function(model, verbose = TRUE, ...) {
 
@@ -69,6 +75,7 @@ create = function(model, verbose = TRUE, ...) {
   statement
 }
 
+#' Helper functions
 get_query_variables = function(dt, sep = " ", spacer = "") {
   if(sep == "\n") spacer = "  "
   str = dt[, paste0(spacer, colname, " ", type, ",", collapse = sep)]

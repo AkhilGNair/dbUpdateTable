@@ -1,8 +1,10 @@
 #' dbGetKey
 #'
 #' Get the primary key from a table
+#'
 #' @param con A database connection
 #' @param name The name of the MySQL table
+#'
 #' @export
 dbGetKey = function(con, name) {
   # Statement boilerplate to select keys from information schema
