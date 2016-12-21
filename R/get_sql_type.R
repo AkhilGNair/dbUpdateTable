@@ -27,6 +27,8 @@ add = function(dt, ...) {
 
   if(is.null(dt_bound)) stop("Unexpected columns supplied")
 
+  data.table::setkeyv(dt_bound, data.table::key(dt))
+
   return(dt_bound)
 }
 
@@ -36,11 +38,10 @@ hash_datatypes = data.table::data.table(r_type = character(0), sql_type = charac
 hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
 hash_datatypes = hash_datatypes %>% add("integer"  , "int")
 hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
-hash_datatypes = hash_datatypes %>% add("logical", "BIT(1)")
+hash_datatypes = hash_datatypes %>% add("logical"  , "BIT(1)")
 
 data.table::setkey(hash_datatypes, "r_type")
 
-#' @export
 get_sql_type = function(type, dt = hash_datatypes) {
   dt[type, sql_type]
 }

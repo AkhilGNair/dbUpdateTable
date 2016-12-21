@@ -1,16 +1,25 @@
 Package: dbCreateTable
-Title: What the Package Does (one line, title case)
+Title: Create and update keyed MySQL tables from R
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Authors@R: person("Akhil", "Name", email = "yup.im.aki@gmail.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends:
     R (>= 3.3.2)
 Imports:
     data.table,
+    RMySQL,
     magrittr,
     stringr,
-    gsubfn
+    gsubfn,
+    testthat
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 5.0.1
+Collate:
+    'dbDeleteRowByKey.R'
+    'dbGetKey.R'
+    'utils.R'
+    'get_sql_type.R'
+    'dbSyncTableR.R'
+    'dbUpdateTable.R'
