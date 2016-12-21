@@ -75,7 +75,6 @@ create = function(model, verbose = TRUE, ...) {
   statement
 }
 
-#' Helper functions
 get_query_variables = function(dt, sep = " ", spacer = "") {
   if(sep == "\n") spacer = "  "
   str = dt[, paste0(spacer, colname, " ", type, ",", collapse = sep)]

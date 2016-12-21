@@ -2,7 +2,7 @@
 % Please edit documentation in R/dbUpdateTable.R
 \name{dbUpdateTable}
 \alias{dbUpdateTable}
-\title{Update rows of a keyed table via DELETE + INSERT}
+\title{dbUpdateTable}
 \usage{
 dbUpdateTable(con, name, dt, verbose = FALSE)
 }

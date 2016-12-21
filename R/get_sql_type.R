@@ -50,6 +50,10 @@ data.table::setkey(hash_datatypes, "r_type")
 #' get_sql_type
 #'
 #' Internal switch between R types and MySQL types
+#'
+#' @param type The R data type to switch to a MySQL data type
+#' @param dt The hash table of types
+#' @param db_type The column name for the MySQL types
 get_sql_type = function(type, dt = hash_datatypes, db_type = substitute(sql_type)) {
   dt[type, eval(db_type)]
 }

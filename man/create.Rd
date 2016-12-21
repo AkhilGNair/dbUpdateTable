@@ -2,7 +2,7 @@
 % Please edit documentation in R/dbSyncTableR.R
 \name{create}
 \alias{create}
-\title{Create a query to which when executed will create keyed data.tables in a MySQL database}
+\title{Create}
 \usage{
 create(model, verbose = TRUE, ...)
 }

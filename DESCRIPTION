@@ -2,7 +2,9 @@ Package: dbCreateTable
 Title: Create and update keyed MySQL tables from R
 Version: 0.1.0.0000
 Authors@R: person("Akhil", "Name", email = "yup.im.aki@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: The main purpose of this package is to provide a single function to update table in a MySQL database by key.
+  To achieve this, there first must be a method to create a keyed MySQL table available. This set up naturally lends itself to data.table where tables can be keyed natively
+  The update is achieved via a DELETE + INSERT. The INSERT uses the standard RMySQL function. The delete could be improved as this is just string parsing.
 Depends:
     R (>= 3.3.2)
 Imports:
