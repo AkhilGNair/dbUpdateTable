@@ -6,7 +6,10 @@
 
 The only purpose of this library is to create a table before we start inserting data into it, such that it can be keyed.  As it is keyed, duplicate keys are ignored in the insert.
 
+## Define model
+
  - Create the Model in R
+
 ```
 library(magrittr)
 
@@ -18,6 +21,9 @@ model_People = data.table::data.table(
   key = c("PersonID", "LastName")
 )
 ```
+
+## dbSyncTable 
+
  - Connect to the database
  - Sync model to database
 
@@ -26,7 +32,9 @@ model_People = data.table::data.table(
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
 dbCreateTable::dbSyncTable(db, model_People)
 ```
+
 Sample SQL data to insert into the built table from the command line or other
+
 ```
 INSERT INTO People (PersonID, LastName, FirstName)
 VALUES (1, "LastName1", "Akhil");
@@ -45,6 +53,7 @@ Resulting in
 ## Keyed Append
 
  - Sync update to table
+ 
 ```
 # Create a table with ordered values
 dt_people = data.table::copy(model_People)
@@ -73,7 +82,8 @@ Resulting in the new entries being appended
 ## Keyed Update
 
  - Sync update to table values
- ```
+
+```
 # Create a table with ordered values
 dt_people = data.table::copy(model_People)
 dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
@@ -82,6 +92,7 @@ dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
 # Duplicates of Primary key are ignored
 dbCreateTable::dbUpdateTable(db, "People", dt_people)
 ```
+
 Resulting in the passed rows being updated
  - `Akhil` is now updated with `Age <- 10`
  
