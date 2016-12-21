@@ -14,19 +14,17 @@ model_People = data.table::data.table(
   PersonID = numeric(0),
   LastName = character(0),
   FirstName = character(0),
-  Age = numeric(0),
+  Age = integer(0),
   key = c("PersonID", "LastName")
 )
 ```
  - Connect to the database
- - Build the query
- - Insert the query
+ - Sync model to database
 
 ```
 # database configuration in ~/.my.cnf
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
-create_query = dbCreateTable::create(model_People)
-DBI::dbGetQuery(db, create_query)
+dbCreateTable::dbSyncTable(db, model_People)
 ```
 Sample SQL data to insert into the built table from the command line or other
 ```
@@ -44,11 +42,13 @@ Resulting in
 |        1 | LastName1 | Akhil     | NULL |
 |        5 | LastName2 | Mandla    |   26 |
 
+## Keyed Append
+
  - Sync update to table
 ```
 # Create a table with ordered values
 dt_people = data.table::copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil")
+dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
 dt_people = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
 dt_people = dt_people %>% dbCreateTable::add(3, "LastName4", "Meldoy", 26)
 dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)
@@ -58,7 +58,9 @@ dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)
 RMySQL::dbWriteTable(db, "People", dt_people, append = TRUE, row.names = FALSE)
 ```
 
-Resulting in
+Resulting in the new entries being appended
+ - `Akhil` is not duplicated as the primary key already exists
+ - `Akhil` is not updated with `Age <- 10` as this is an UPDATE IGNORE
 
 | PersonID | LastName  | FirstName | Age  |
 |----------|-----------|-----------|------|
@@ -67,4 +69,27 @@ Resulting in
 |        3 | LastName4 | Melody    |   26 |
 |        4 | LastName5 | Tim       |   21 |
 |        5 | LastName2 | Mandla    |   26 |
+
+## Keyed Update
+
+ - Sync update to table values
+ ```
+# Create a table with ordered values
+dt_people = data.table::copy(model_People)
+dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
+
+# Append data to table
+# Duplicates of Primary key are ignored
+dbCreateTable::dbUpdateTable(db, "People", dt_people)
+```
+Resulting in the passed rows being updated
+ - `Akhil` is now updated with `Age <- 10`
+ 
+| PersonID | LastName  | FirstName | Age  |
+|----------|-----------|-----------|------|
+|    1.000 | LastName1 | Akhil     |   10 |
+|    2.000 | LastName3 | Chris     |   65 |
+|    3.000 | LastName4 | Meldoy    |   26 |
+|    4.000 | LastName5 | Tim       |   21 |
+|    5.000 | LastName2 | Mandla    |   26 |
 
