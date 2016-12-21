@@ -38,7 +38,7 @@ hash_datatypes = data.table::data.table(r_type = character(0), sql_type = charac
 hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
 hash_datatypes = hash_datatypes %>% add("integer"  , "int")
 hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
-hash_datatypes = hash_datatypes %>% add("logical"  , "BIT(1)")
+hash_datatypes = hash_datatypes %>% add("logical", "TINYINT")  # Should be "BIT(1)" however there is an error in RMySQL
 
 data.table::setkey(hash_datatypes, "r_type")
 
