@@ -1,8 +1,10 @@
 #' Delete rows of a keyed table
 #'
 #' Helper function for dbUpdateTable
-
-dbDeleteRowByKey = function(con, name, dt, ...) {
+#' @param con A database connection
+#' @param name The name of the MySQL table to delete rows from
+#' @param dt A \code{data.table} containing paired keys to delete
+dbDeleteRowByKey = function(con, name, dt) {
   # Construct main statement
   query = "DELETE FROM %(name)s WHERE (%(pk)s) IN (%(tups)s) ;"
 

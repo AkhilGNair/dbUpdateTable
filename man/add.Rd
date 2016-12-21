@@ -2,11 +2,16 @@
 % Please edit documentation in R/get_sql_type.R
 \name{add}
 \alias{add}
-\title{Add a row to a data.table}
+\title{Add}
 \usage{
 add(dt, ...)
 }
+\arguments{
+\item{dt}{a \code{data.table} to add a row to}
+
+\item{...}{Versatile handler for the row, a list or multiple parameters}
+}
 \description{
-Add a row to a data.table
+Add a row to a data.table - mainly for internal use and testing
 }
 

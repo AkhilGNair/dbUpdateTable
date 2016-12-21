@@ -4,7 +4,7 @@
 \alias{dbUpdateTable}
 \title{Update rows of a keyed table via DELETE + INSERT}
 \usage{
-dbUpdateTable(con, name, dt, ...)
+dbUpdateTable(con, name, dt, verbose = FALSE)
 }
 \arguments{
 \item{con}{A MySQL connection}
@@ -12,6 +12,8 @@ dbUpdateTable(con, name, dt, ...)
 \item{name}{A MySQL table name}
 
 \item{dt}{A keyed data.table with data to update in \code{name}}
+
+\item{verbose}{Print brief progress messages}
 }
 \description{
 Update rows of a keyed table via DELETE + INSERT

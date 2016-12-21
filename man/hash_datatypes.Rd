@@ -4,7 +4,7 @@
 \name{hash_datatypes}
 \alias{hash_datatypes}
 \title{Current implemented datatype handling}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 3 rows and 2 columns.}
+\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 4 rows and 2 columns.}
 \usage{
 hash_datatypes
 }

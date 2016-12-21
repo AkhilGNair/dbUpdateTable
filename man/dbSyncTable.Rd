@@ -2,11 +2,18 @@
 % Please edit documentation in R/dbSyncTableR.R
 \name{dbSyncTable}
 \alias{dbSyncTable}
-\title{A function to create a query to create keyed data.tables into a MySQL database}
+\title{dbSyncTable and Create}
 \usage{
 dbSyncTable(con, model, ...)
 }
+\arguments{
+\item{con}{A database connection}
+
+\item{model}{A \code{data.table} model - by convention is prefaced with \code{model_}}
+
+\item{...}{Convenience way to pass optional arguments to pass to Create}
+}
 \description{
-A function to create a query to create keyed data.tables into a MySQL database
+A convenience function to use create to directly sync a model to the database
 }
 

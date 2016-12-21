@@ -1,5 +1,9 @@
-#' Add a row to a data.table
+#' Add
+#'
+#' Add a row to a data.table - mainly for internal use and testing
 #' @import data.table
+#' @param dt a \code{data.table} to add a row to
+#' @param ... Versatile handler for the row, a list or multiple parameters
 #' @export
 add = function(dt, ...) {
   # Init return param to catch exceptions
@@ -38,10 +42,12 @@ hash_datatypes = data.table::data.table(r_type = character(0), sql_type = charac
 hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
 hash_datatypes = hash_datatypes %>% add("integer"  , "int")
 hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
-hash_datatypes = hash_datatypes %>% add("logical"  , "BIT(1)")
-
+hash_datatypes = hash_datatypes %>% add("logical"  , "TINYINT")
 data.table::setkey(hash_datatypes, "r_type")
 
-get_sql_type = function(type, dt = hash_datatypes) {
-  dt[type, sql_type]
+#' get_sql_type
+#'
+#' Internal switch between R types and MySQL types
+get_sql_type = function(type, dt = hash_datatypes, db_type = substitute(sql_type)) {
+  dt[type, eval(db_type)]
 }

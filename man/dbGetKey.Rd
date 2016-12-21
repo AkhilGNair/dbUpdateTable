@@ -2,9 +2,14 @@
 % Please edit documentation in R/dbGetKey.R
 \name{dbGetKey}
 \alias{dbGetKey}
-\title{Get the primary key from a table}
+\title{dbGetKey}
 \usage{
-dbGetKey(con, name, ...)
+dbGetKey(con, name)
+}
+\arguments{
+\item{con}{A database connection}
+
+\item{name}{The name of the MySQL table}
 }
 \description{
 Get the primary key from a table

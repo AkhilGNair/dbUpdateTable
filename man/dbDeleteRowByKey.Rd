@@ -4,7 +4,14 @@
 \alias{dbDeleteRowByKey}
 \title{Delete rows of a keyed table}
 \usage{
-dbDeleteRowByKey(con, name, dt, ...)
+dbDeleteRowByKey(con, name, dt)
+}
+\arguments{
+\item{con}{A database connection}
+
+\item{name}{The name of the MySQL table to delete rows from}
+
+\item{dt}{A \code{data.table} containing paired keys to delete}
 }
 \description{
 Helper function for dbUpdateTable

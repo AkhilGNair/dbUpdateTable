@@ -1,15 +1,23 @@
-#' A function to create a query to create keyed data.tables into a MySQL database
-
+#' dbSyncTable and Create
+#'
+#' A convenience function to use create to directly sync a model to the database
+#' @param con A database connection
+#' @param model A \code{data.table} model - by convention is prefaced with \code{model_}
+#' @param ... Convenience way to pass optional arguments to pass to Create
 #' @export
 dbSyncTable = function(con, model, ...) {
   str_name = deparse(substitute(model))
-  create_query = dbCreateTable::create(model = model, name = str_name, ...)
+  create_query = create(model = model, name = str_name, ...)
   DBI::dbGetQuery(con, create_query)
   TRUE
 }
 
+#' Create a query to which when executed will create keyed data.tables in a MySQL database
 #' @include get_sql_type.R
 #' @include utils.R
+#' @param model A \code{data.table} model - by convention is prefaced with \code{model_}
+#' @param verbose Boolean to control printing of created statement
+#' @param ... Carry parameters forward from dbSyncTable
 #' @export
 create = function(model, verbose = TRUE, ...) {
 
