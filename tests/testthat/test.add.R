@@ -10,30 +10,30 @@ model_People = data.table::data.table(
 
 dt_people = data.table::copy(model_People)
 
-# dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil")
+# dt_people = dt_people %>% dbUpdateTable::add(1, "LastName1", "Akhil")
 
 # Add one, all unnamed variables, ordered
-test1 = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
+test1 = dt_people %>% dbUpdateTable::add(2, "LastName3", "Chris",  65)
 expected_test1 = data.table::data.table(PersonID = 2, LastName = "LastName3", FirstName = "Chris", Age = 65,
                                         key = c("PersonID", "LastName"))
 
 # Add one, all named variables, unordered
-test2 = dt_people %>% dbCreateTable::add(PersonID = 3, FirstName = "Melody", LastName = "LastName4", Age = 26)
+test2 = dt_people %>% dbUpdateTable::add(PersonID = 3, FirstName = "Melody", LastName = "LastName4", Age = 26)
 expected_test2 = data.table::data.table(PersonID = 3, LastName = "LastName4", FirstName = "Melody", Age = 26,
                                         key = c("PersonID", "LastName"))
 
 # Add one, not all variables, names
-test3 = dt_people %>% dbCreateTable::add(PersonID = 4, LastName = "LastName5", Age = 21)
+test3 = dt_people %>% dbUpdateTable::add(PersonID = 4, LastName = "LastName5", Age = 21)
 expected_test3 = data.table::data.table(PersonID = 4, LastName = "LastName5", FirstName = NA_character_, Age = 21,
                                         key = c("PersonID", "LastName"))
 
 # Add one by list, all variables, unnamed
-test4 = dt_people %>% dbCreateTable::add(list(6, "LastName6", "Tom", 30))
+test4 = dt_people %>% dbUpdateTable::add(list(6, "LastName6", "Tom", 30))
 expected_test4 = data.table::data.table(PersonID = 6, LastName = "LastName6", FirstName = "Tom", Age = 30,
                                         key = c("PersonID", "LastName"))
 
 # Add multiple, not all variables, named
-test5 = dt_people %>% dbCreateTable::add(list(PersonID = c(1, 7), LastName = c("LastName1", "LastName7")))
+test5 = dt_people %>% dbUpdateTable::add(list(PersonID = c(1, 7), LastName = c("LastName1", "LastName7")))
 expected_test5  = data.table::data.table(PersonID = c(1, 7),
                                          LastName = c("LastName1", "LastName7"),
                                          FirstName = c(NA_character_, NA_character_),

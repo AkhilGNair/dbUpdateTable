@@ -16,9 +16,9 @@ dbSyncTable(db, model_People, verbose = FALSE)
 
 # sample data
 dt_people = data.table::copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
-dt_people = dt_people %>% dbCreateTable::add(3, "LastName4", "Meldoy", 26)
-dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)
+dt_people = dt_people %>% dbUpdateTable::add(2, "LastName3", "Chris",  65)
+dt_people = dt_people %>% dbUpdateTable::add(3, "LastName4", "Meldoy", 26)
+dt_people = dt_people %>% dbUpdateTable::add(4, "LastName5", "Tim",    21)
 
 dt_people_edit = data.table::copy(dt_people)
 data.table::set(dt_people_edit, 1L, 4L, 32)
@@ -47,7 +47,7 @@ test_that("Insert IGNORES on duplicate key", {
 
 test_that("Preserved old data and adds new row", {
   new_row = list(6, "LastName6", "Rebecca", 21)
-  dt_people_edit = dt_people_edit %>% dbCreateTable::add(new_row)
+  dt_people_edit = dt_people_edit %>% dbUpdateTable::add(new_row)
 
   RMySQL::dbWriteTable(db, "People", dt_people_edit, append = TRUE, row.names = FALSE)
   dt_people_read = suppressWarnings(RMySQL::dbReadTable(db, "People"))

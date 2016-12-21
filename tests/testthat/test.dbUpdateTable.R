@@ -15,13 +15,13 @@ dbSyncTable(db, model_People, verbose = FALSE)
 
 # sample data
 dt_people = data.table::copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(2, "LastName2", "Chris",  31)
-dt_people = dt_people %>% dbCreateTable::add(3, "LastName3", "Meldoy", 26)
-dt_people = dt_people %>% dbCreateTable::add(4, "LastName4", "Tim",    21)
+dt_people = dt_people %>% dbUpdateTable::add(2, "LastName2", "Chris",  31)
+dt_people = dt_people %>% dbUpdateTable::add(3, "LastName3", "Meldoy", 26)
+dt_people = dt_people %>% dbUpdateTable::add(4, "LastName4", "Tim",    21)
 
 dbUpdateTable(db, "People", dt_people)
 
-dt_people = dt_people %>% dbCreateTable::add(5, "LastName5", "Rich",   30)
+dt_people = dt_people %>% dbUpdateTable::add(5, "LastName5", "Rich",   30)
 dt_people[PersonID == 3, Age := 18]
 
 dbUpdateTable(db, "People", dt_people)

@@ -1,4 +1,4 @@
 library(testthat)
 library(magrittr)
 
-test_check("dbCreateTable")
+test_check("dbUpdateTable")

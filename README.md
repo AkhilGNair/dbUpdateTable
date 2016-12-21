@@ -1,6 +1,6 @@
-# dbCreateTable
+# dbUpdateTable
 
-[![Build Status](https://travis-ci.org/AkhilNairAmey/dbCreateTable.svg?branch=master)](https://travis-ci.org/AkhilNairAmey/dbCreateTable)
+[![Build Status](https://travis-ci.org/AkhilNairAmey/dbUpdateTable.svg?branch=master)](https://travis-ci.org/AkhilNairAmey/dbUpdateTable)
 
 #### Easily update keyed tables in MySQL from R without duplicating data
 
@@ -30,7 +30,7 @@ model_People = data.table::data.table(
 ```
 # database configuration in ~/.my.cnf
 db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
-dbCreateTable::dbSyncTable(db, model_People)
+dbUpdateTable::dbSyncTable(db, model_People)
 ```
 
 Sample SQL data to insert into the built table from the command line or other
@@ -57,10 +57,10 @@ Resulting in
 ```
 # Create a table with ordered values
 dt_people = data.table::copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
-dt_people = dt_people %>% dbCreateTable::add(2, "LastName3", "Chris",  65)
-dt_people = dt_people %>% dbCreateTable::add(3, "LastName4", "Meldoy", 26)
-dt_people = dt_people %>% dbCreateTable::add(4, "LastName5", "Tim",    21)
+dt_people = dt_people %>% dbUpdateTable::add(1, "LastName1", "Akhil", 10)
+dt_people = dt_people %>% dbUpdateTable::add(2, "LastName3", "Chris",  65)
+dt_people = dt_people %>% dbUpdateTable::add(3, "LastName4", "Meldoy", 26)
+dt_people = dt_people %>% dbUpdateTable::add(4, "LastName5", "Tim",    21)
 
 # Append data to table
 # Duplicates of Primary key are ignored
@@ -86,11 +86,11 @@ Resulting in the new entries being appended
 ```
 # Create a table with ordered values
 dt_people = data.table::copy(model_People)
-dt_people = dt_people %>% dbCreateTable::add(1, "LastName1", "Akhil", 10)
+dt_people = dt_people %>% dbUpdateTable::add(1, "LastName1", "Akhil", 10)
 
 # Append data to table
 # Duplicates of Primary key are ignored
-dbCreateTable::dbUpdateTable(db, "People", dt_people)
+dbUpdateTable::dbUpdateTable(db, "People", dt_people)
 ```
 
 Resulting in the passed rows being updated

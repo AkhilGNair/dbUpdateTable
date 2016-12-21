@@ -1,4 +1,4 @@
-Package: dbCreateTable
+Package: dbUpdateTable
 Title: Create and update keyed MySQL tables from R
 Version: 0.1.0.0000
 Authors@R: person("Akhil", "Name", email = "yup.im.aki@gmail.com", role = c("aut", "cre"))
