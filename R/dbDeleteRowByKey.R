@@ -33,7 +33,12 @@ dbDeleteRowByKey = function(con, name, dt) {
 quote_string_cols = function(dt) {
   col_types = vapply(dt, FUN = class, FUN.VALUE = character(1))
   col_str_types = col_types[col_types == "character"]
-  dt[, (names(col_str_types)) := lapply(.SD, quote_string), .SDcols = names(col_str_types)]
+
+  # Only run if there is a character column being keyed by
+  # i.e. if length(col_str_types) != 0
+  if(length(col_str_types) != 0){
+    dt[, (names(col_str_types)) := lapply(.SD, quote_string), .SDcols = names(col_str_types)]
+  }
   dt
 }
 
