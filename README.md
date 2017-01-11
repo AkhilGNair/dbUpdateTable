@@ -4,8 +4,13 @@
 
 #### Easily update keyed tables in MySQL from R without duplicating data
 
-The only purpose of this library is to create a table before we start inserting data into it, such that it can be keyed.  As it is keyed, duplicate keys are ignored in the insert.
-
+This library has two purposes:
+ - Create a table in MySQL before inserting data into it, such that it can be keyed.
+ - Provide a function to update values to the table, respecting the key.
+   - Although the function is written to look like standard `RMySQL` functions, it does not conform to the coding practices of the main package.
+   - Workload is mainly carried out by `RMySQL` functions, with the exception of `dbDeleteRowByKey`, for which the performance isn't too bad.
+     - TODO: Add benchmark
+   
 ## Define model
 
  - Create the Model in R
