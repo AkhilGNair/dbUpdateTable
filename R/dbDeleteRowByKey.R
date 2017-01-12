@@ -5,6 +5,8 @@
 #' @param con A database connection
 #' @param name The name of the MySQL table to delete rows from
 #' @param dt A \code{data.table} containing paired keys to delete
+#'
+#' @export
 
 dbDeleteRowByKey = function(con, name, dt) {
   # Construct main statement
