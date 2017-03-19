@@ -105,7 +105,7 @@ Resulting in the passed rows being updated
 |----------|-----------|-----------|------|
 |    1     | LastName1 | Akhil     |   10 |
 |    2     | LastName3 | Chris     |   65 |
-|    3     | LastName4 | Meldoy    |   26 |
+|    3     | LastName4 | Melody    |   26 |
 |    4     | LastName5 | Tim       |   21 |
 |    5     | LastName2 | Mandla    |   26 |
 
