@@ -64,7 +64,7 @@ Resulting in
 dt_people = data.table::copy(model_People)
 dt_people = dt_people %>% dbUpdateTable::add(1, "LastName1", "Akhil", 10)
 dt_people = dt_people %>% dbUpdateTable::add(2, "LastName3", "Chris",  65)
-dt_people = dt_people %>% dbUpdateTable::add(3, "LastName4", "Meldoy", 26)
+dt_people = dt_people %>% dbUpdateTable::add(3, "LastName4", "Melody", 26)
 dt_people = dt_people %>% dbUpdateTable::add(4, "LastName5", "Tim",    21)
 
 # Append data to table
