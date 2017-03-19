@@ -7,6 +7,7 @@
 #'
 #' @import data.table
 #' @export
+
 add = function(dt, ...) {
   # Init return param to catch exceptions
   dt_bound = NULL
@@ -53,7 +54,6 @@ data.table::setkey(hash_datatypes, "r_type")
 #'
 #' @param type The R data type to switch to a MySQL data type
 #' @param dt The hash table of types
-#' @param db_type The column name for the MySQL types
-get_sql_type = function(type, dt = hash_datatypes, db_type = substitute(sql_type)) {
-  dt[type, eval(db_type)]
+get_sql_type = function(type, dt = hash_datatypes) {
+  dt[type, eval(substitute(sql_type))]
 }

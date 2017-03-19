@@ -7,6 +7,7 @@
 #' @param ... Convenience way to pass optional arguments to pass to Create
 #'
 #' @export
+
 dbSyncTable = function(con, model, ...) {
   str_name = deparse(substitute(model))
   create_query = create(model = model, name = str_name, ...)
@@ -25,6 +26,7 @@ dbSyncTable = function(con, model, ...) {
 #' @include get_sql_type.R
 #' @include utils.R
 #' @export
+
 create = function(model, verbose = TRUE, ...) {
 
   # Handle dots
@@ -74,6 +76,9 @@ create = function(model, verbose = TRUE, ...) {
   # return
   statement
 }
+
+# Global variables for data.table column names made in dt_structure
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("colname", "type"))
 
 get_query_variables = function(dt, sep = " ", spacer = "") {
   if(sep == "\n") spacer = "  "

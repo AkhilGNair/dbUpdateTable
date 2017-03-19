@@ -1,3 +1,6 @@
+# Global variables for data.table column names
+if(getRversion() >= "2.15.1")  utils::globalVariables(c(".id", "tup"))
+
 #' Delete rows of a keyed table
 #'
 #' Helper function for dbUpdateTable
@@ -22,7 +25,7 @@ dbDeleteRowByKey = function(con, name, dt) {
   delete_keys = quote_string_cols(delete_keys)
 
   # Format keys to insert into query
-  str_delete_keys = delete_keys[, .id := 1:.N][, .(tup = paste0(.SD, collapse = ", ")), by = .id][, tup]
+  str_delete_keys = delete_keys[, .id := 1:.N][, list(tup = paste0(.SD, collapse = ", ")), by = .id][, tup]
   str_delete_keys = paste0("(", paste0(str_delete_keys, collapse = "), ("), ")")
 
   # Insert parameters into query
