@@ -94,7 +94,7 @@ dt_people = data.table::copy(model_People)
 dt_people = dt_people %>% dbUpdateTable::add(1, "LastName1", "Akhil", 10)
 
 # Append data to table
-# Duplicates of Primary key are ignored
+# Duplicates of Primary key are updated
 dbUpdateTable::dbUpdateTable(db, "People", dt_people)
 ```
 
