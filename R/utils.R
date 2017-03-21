@@ -11,7 +11,8 @@
 
 `%format%` <- function(fmt, list) {
   pat <- "%\\(([^)]*)\\)"
+  pat2 <- "(?<=%\\()([^)]*)(?=\\))"
   fmt2 <- gsub(pat, "%", fmt)
-  list2 <- list[gsubfn::strapplyc(fmt, pat)[[1]]]
+  list2 <- list[stringr::str_extract_all(fmt, pat2)[[1]]]
   do.call("sprintf", c(fmt2, list2))
 }
