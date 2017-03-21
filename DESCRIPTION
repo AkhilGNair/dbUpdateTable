@@ -13,7 +13,6 @@ Imports:
     DBI,
     magrittr,
     stringr,
-    gsubfn,
     testthat
 License: MIT + file LICENSE
 Encoding: UTF-8
