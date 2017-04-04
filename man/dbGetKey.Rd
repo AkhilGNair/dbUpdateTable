@@ -14,4 +14,3 @@ dbGetKey(con, name)
 \description{
 Get the primary key from a table
 }
-

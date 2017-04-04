@@ -14,4 +14,3 @@ add(dt, ...)
 \description{
 Add a row to a data.table - mainly for internal use and testing
 }
-

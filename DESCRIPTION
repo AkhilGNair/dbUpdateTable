@@ -10,14 +10,14 @@ Depends:
 Imports:
     data.table,
     RMySQL,
-    DBI,
+    DBI (>= 0.5-1),
     magrittr,
     stringr,
     testthat
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Collate:
     'dbDeleteRowByKey.R'
     'dbGetKey.R'

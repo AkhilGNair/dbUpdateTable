@@ -14,4 +14,3 @@ get_sql_type(type, dt = hash_datatypes)
 \description{
 Internal switch between R types and MySQL types
 }
-

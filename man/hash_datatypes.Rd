@@ -12,4 +12,3 @@ hash_datatypes
 Current implemented datatype handling
 }
 \keyword{datasets}
-

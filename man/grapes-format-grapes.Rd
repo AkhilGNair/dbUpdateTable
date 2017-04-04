@@ -19,4 +19,3 @@ parameters <- list(label = "months", april = 4, may = 5, june = 6)
 "\%(label)s: \%(april)d \%(may)d \%(june)d" \%format\% parameters
 
 }
-

@@ -6,22 +6,32 @@
 #' @param name A MySQL table name
 #' @param dt A keyed data.table with data to update in \code{name}
 #' @param verbose Print brief progress messages
+#' @param test_kill Is a verable for testing to insure Transaction works
 #'
 #' @include dbDeleteRowByKey.R
 #' @export
 
-dbUpdateTable = function(con, name, dt, verbose = FALSE) {
+dbUpdateTable = function(con, name, dt, verbose = FALSE, test_kill = FALSE) {
 
   # Switches for dots
   # verbose = FALSE
   # dots = list(...)
   # if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
-  dbDeleteRowByKey(con, name, dt)
-  if(verbose) message("Updating")
+  ### Use DBI transcation so that the row is deleated iff the row is then re-inserted
+  DBI::dbWithTransaction(
+    conn = con,
+    code = {
+      dbDeleteRowByKey(con, name, dt)
+      if(verbose) message("Deleating row(s) form database")
 
-  RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
-  if(verbose) message("Updated")
+      # If Test_kill is true kil the connection to test what happens
+      if (test_kill) {rm(con); gc ()}
 
-  TRUE
+      RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
+      if(verbose) message("Writing row(s) to database")
+    }
+  )
+
+  if(verbose) {TRUE}
 }
