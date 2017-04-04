@@ -64,8 +64,8 @@ test_that("Update Table can replace data just one row in a table", {
   expect_equal(dt_people, test_4)
 })
 
-####### Tes the ability of transaction
-test_that("Update Table can replace data just one row in a table", {
+####### Test the ability of transaction to stop d
+test_that("Test Transaction will catch a loss of connection, and revert the changess", {
   dt_wrong = data.table::copy(dt_people)[PersonID == 2, Age := Age + 1000000]
 
   # This will not finish runnign and kill the connection db
@@ -83,14 +83,6 @@ test_that("Update Table can replace data just one row in a table", {
 
   expect_equal(dt_people, test_4)
 })
-
-
-
-
-dt_people = dt_people %>% dbUpdateTable::add(5, "LastName5", "Rich",   30)
-dt_people[PersonID == 3, Age := 18]
-
-dbUpdateTable(db, "People", dt_people)
 
 RMySQL::dbRemoveTable(db, "People")
 RMySQL::dbDisconnect(db)
