@@ -16,4 +16,3 @@ create(model, verbose = TRUE, ...)
 \description{
 Create a query to which when executed will create keyed data.tables in a MySQL database
 }
-

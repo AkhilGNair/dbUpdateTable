@@ -16,4 +16,3 @@ dbSyncTable(con, model, ...)
 \description{
 A convenience function to use create to directly sync a model to the database
 }
-

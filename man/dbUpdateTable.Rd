@@ -4,7 +4,7 @@
 \alias{dbUpdateTable}
 \title{dbUpdateTable}
 \usage{
-dbUpdateTable(con, name, dt, verbose = FALSE)
+dbUpdateTable(con, name, dt, verbose = FALSE, test_kill = FALSE)
 }
 \arguments{
 \item{con}{A MySQL connection}
@@ -14,8 +14,9 @@ dbUpdateTable(con, name, dt, verbose = FALSE)
 \item{dt}{A keyed data.table with data to update in \code{name}}
 
 \item{verbose}{Print brief progress messages}
+
+\item{test_kill}{Is a verable for testing to insure Transaction works}
 }
 \description{
 Update rows of a keyed table via DELETE + INSERT
 }
-
