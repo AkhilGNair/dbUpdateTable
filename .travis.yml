@@ -22,4 +22,4 @@ before_install:
 before_script:
   - Rscript -e "capabilities()"
   - mysql -e "create database IF NOT EXISTS TestdbUpdateTable;" -uroot
-  - printf "[MySQL]\nusername=travis\ndatabase=TestdbUpdateTable\nhost=localhost\n" > ~/.my.cnf
+  - printf "[dbUpdateTable]\nusername=travis\ndatabase=TestdbUpdateTable\nhost=localhost\n" > ~/.my.cnf
