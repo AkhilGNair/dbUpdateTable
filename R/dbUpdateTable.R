@@ -17,11 +17,17 @@ dbUpdateTable = function(con, name, dt, verbose = FALSE) {
   # dots = list(...)
   # if("verbose" %in% names(dots)) verbose = dots[["verbose"]]
 
-  dbDeleteRowByKey(con, name, dt)
-  if(verbose) message("Updating")
+  ### Use DBI transcation so that the row is deleated iff the row is then re-inserted
+  DBI::dbWithTransaction(
+    conn = con,
+    code = {
+      dbDeleteRowByKey(con, name, dt)
+      if(verbose) message("Deleating row(s) form database")
 
-  RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
-  if(verbose) message("Updated")
+      RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
+      if(verbose) message("Writing row(s) to database")
+    }
+  )
 
-  TRUE
+  if(verbose) {TRUE}
 }
