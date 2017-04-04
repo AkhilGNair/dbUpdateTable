@@ -1,5 +1,3 @@
-# library(magrittr)
-
 model_People = data.table::data.table(
   PersonID = integer(0),
   LastName = character(0),

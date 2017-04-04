@@ -1,5 +1,6 @@
+context("dbUpdateTable")
 # Login details at ~/.my.cnf
-db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
+db = RMySQL::dbConnect(RMySQL::MySQL(), group = "dbUpdateTable")
 
 # define model
 model_People = data.table::data.table(
@@ -19,12 +20,22 @@ dt_people = dt_people %>% dbUpdateTable::add(2, "LastName2", "Chris",  31)
 dt_people = dt_people %>% dbUpdateTable::add(3, "LastName3", "Meldoy", 26)
 dt_people = dt_people %>% dbUpdateTable::add(4, "LastName4", "Tim",    21)
 
-dbUpdateTable(db, "People", dt_people)
+test_that("Initial data written", {
 
-dt_people = dt_people %>% dbUpdateTable::add(5, "LastName5", "Rich",   30)
-dt_people[PersonID == 3, Age := 18]
+  dbUpdateTable(db, "People", dt_people)
+  expect_equivalent(as.data.frame(dt_people), suppressWarnings(RMySQL::dbReadTable(db, "People")))
 
-dbUpdateTable(db, "People", dt_people)
+})
 
+test_that("New row added and data updated", {
+
+  dt_people = dt_people %>% dbUpdateTable::add(5, "LastName5", "Rich",   30)
+  dt_people[PersonID == 3, Age := 18]
+  dbUpdateTable(db, "People", dt_people)
+  expect_equivalent(as.data.frame(dt_people), suppressWarnings(RMySQL::dbReadTable(db, "People")))
+
+})
+
+# clean up
 RMySQL::dbRemoveTable(db, "People")
 RMySQL::dbDisconnect(db)
