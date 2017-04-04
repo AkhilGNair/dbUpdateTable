@@ -1,6 +1,6 @@
 context("dbWriteTable append does not add duplicate data when keyed")
 # Login details at ~/.my.cnf
-db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
+db = RMySQL::dbConnect(RMySQL::MySQL(), group = "dbUpdateTable")
 
 # define model
 model_People = data.table::data.table(

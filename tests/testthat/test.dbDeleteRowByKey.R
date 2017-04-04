@@ -1,5 +1,6 @@
+context("dbDeleteRowByKey")
 # Login details at ~/.my.cnf
-db = RMySQL::dbConnect(RMySQL::MySQL(), group = "MySQL")
+db = RMySQL::dbConnect(RMySQL::MySQL(), group = "dbUpdateTable")
 
 # define model
 model_Letters = data.table::data.table(
@@ -13,17 +14,21 @@ model_Letters = data.table::data.table(
 # sync model to db
 dbSyncTable(db, model_Letters, verbose = FALSE)
 
-ptm = proc.time()
 dt_letters = data.table::CJ(key1 = letters,
                             key2 = LETTERS,
                             key3 = month.name,
                             key4 = month.abb)
-RMySQL::dbWriteTable(db, "Letters", dt_letters, row.names = FALSE, append = TRUE)
-write_time = proc.time() - ptm
 
-ptm = proc.time()
-dbDeleteRowByKey(db, "Letters", dt_letters[sample(1:.N, 50000)])
-delete_time = proc.time() - ptm
+RMySQL::dbWriteTable(db, "Letters", dt_letters, row.names = FALSE, append = TRUE)
+
+n_delete = 50000
+dbDeleteRowByKey(db, "Letters", dt_letters[sample(1:.N, n_delete, replace = FALSE)])
+
+test_that("Exactly 50000 rows are deleted", {
+
+  expect_equal(nrow(dt_letters) - n_delete, nrow(RMySQL::dbReadTable(db, "Letters")))
+
+})
 
 RMySQL::dbRemoveTable(db, "Letters")
 RMySQL::dbDisconnect(db)
