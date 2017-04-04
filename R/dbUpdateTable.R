@@ -10,7 +10,7 @@
 #' @include dbDeleteRowByKey.R
 #' @export
 
-dbUpdateTable = function(con, name, dt, verbose = FALSE, test_kill = FALSE) {
+dbUpdateTable = function(con, name, dt, verbose = FALSE) {
 
   # Switches for dots
   # verbose = FALSE
