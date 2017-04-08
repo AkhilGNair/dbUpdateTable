@@ -20,11 +20,11 @@ dbUpdateTable = function(con, name, dt, verbose = FALSE) {
   # Use transcation for failure tolerance
   DBI::dbWithTransaction(
     conn = con, code = {
-      dbDeleteRowByKey(con, name, dt)
       if(verbose) message("Deleting row(s) from database")
+      dbDeleteRowByKey(con, name, dt)
 
+      if(verbose) message("Writing row(s) to database") 
       RMySQL::dbWriteTable(con, name, dt, row.names = FALSE, append = TRUE)
-      if(verbose) message("Writing row(s) to database")
     }
   )
 
