@@ -33,7 +33,7 @@ test_that("Exactly 50000 rows are deleted", {
 test_that("The function will safly exit if given empty dt", {
 
   # Expect there is no error
-  expect_error(dbDeleteRowByKey(db, "Letters", dt_letters[1 == 0]), NA)
+  expect_equal(dbDeleteRowByKey(db, "Letters", dt_letters[1 == 0]), NA)
 
 })
 

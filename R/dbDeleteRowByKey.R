@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c(".id", "tup"))
 dbDeleteRowByKey = function(con, name, dt) {
 
   # If there are no rows in dt then return, there is nothing to delete.
-  if (dt[, .N == 0 ]) {return()}
+  if (dt[, .N == 0 ]) { return() }
 
   # Construct main statement
   query = "DELETE FROM %(name)s WHERE (%(pk)s) IN (%(tups)s) ;"
