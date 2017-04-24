@@ -1,5 +1,5 @@
 # Global variables for data.table column names
-if(getRversion() >= "2.15.1")  utils::globalVariables(c(".id", "tup"))
+if (getRversion() >= "2.15.1")  utils::globalVariables(c(".id", "tup"))
 
 #' Delete rows of a keyed table
 #'
@@ -12,6 +12,11 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".id", "tup"))
 #' @export
 
 dbDeleteRowByKey = function(con, name, dt) {
+
+  # If there are no rows in dt then return, there is nothing to delete.
+  # Return TRUE to signify lack of error
+  if (dt[, .N == 0 ]) { return(TRUE) }
+
   # Construct main statement
   query = "DELETE FROM %(name)s WHERE (%(pk)s) IN (%(tups)s) ;"
 
@@ -30,6 +35,7 @@ dbDeleteRowByKey = function(con, name, dt) {
 
   # Insert parameters into query
   query = query %format% list(name = name, pk = str_pk, tups = str_delete_keys)
+
   # Dispatch query
   DBI::dbGetQuery(con, query)
   TRUE
@@ -40,7 +46,7 @@ quote_string_cols = function(dt) {
   col_str_types = col_types[col_types == "character"]
 
   # return if no strings to cast
-  if(length(col_str_types) == 0) return(dt)
+  if (length(col_str_types) == 0) return(dt)
 
   dt[, (names(col_str_types)) := lapply(.SD, quote_string), .SDcols = names(col_str_types)]
   dt
