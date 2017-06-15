@@ -46,6 +46,7 @@ hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
 hash_datatypes = hash_datatypes %>% add("integer"  , "int")
 hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
 hash_datatypes = hash_datatypes %>% add("logical"  , "TINYINT")
+hash_datatypes = hash_datatypes %>% add("Date"     , "date")
 data.table::setkey(hash_datatypes, "r_type")
 
 #' get_sql_type
