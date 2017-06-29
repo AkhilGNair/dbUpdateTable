@@ -13,7 +13,8 @@ Imports:
     DBI,
     magrittr,
     stringr,
-    testthat
+    testthat,
+    tibble
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -41,13 +41,16 @@ add = function(dt, ...) {
 
 #' Current implemented datatype handling
 #' @importFrom magrittr "%>%"
-hash_datatypes = data.table::data.table(r_type = character(0), sql_type = character(0))
-hash_datatypes = hash_datatypes %>% add("numeric"  , "decimal(10, 3)")
-hash_datatypes = hash_datatypes %>% add("integer"  , "int")
-hash_datatypes = hash_datatypes %>% add("character", "varchar(255)")
-hash_datatypes = hash_datatypes %>% add("logical"  , "TINYINT")
-hash_datatypes = hash_datatypes %>% add("Date"     , "date")
-data.table::setkey(hash_datatypes, "r_type")
+hash_datatypes = tibble::tribble(
+  ~r_type    ,         ~sql_type,
+  "Date"     ,            "date",
+  "character",    "varchar(255)",
+  "integer"  ,             "int",
+  "logical"  ,         "TINYINT",
+  "numeric"  ,  "decimal(10, 3)"
+) %>%
+  data.table::setDT(.) %>%
+  data.table::setkey("r_type")
 
 #' get_sql_type
 #'
