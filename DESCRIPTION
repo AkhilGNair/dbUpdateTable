@@ -26,3 +26,4 @@ Collate:
     'get_sql_type.R'
     'dbSyncTableR.R'
     'dbUpdateTable.R'
+    'sql_types.R'
