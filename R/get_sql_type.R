@@ -47,10 +47,13 @@ hash_datatypes = tibble::tribble(
   "character",    "varchar(255)",
   "integer"  ,             "int",
   "logical"  ,         "TINYINT",
-  "numeric"  ,  "decimal(10, 3)"
+  "numeric"  ,  "decimal(10, 3)",
+  "POSIXt"   ,        "DATETIME",
+  "long_text",   "varchar(30000)"
 ) %>%
   data.table::setDT(.) %>%
   data.table::setkey("r_type")
+
 
 #' get_sql_type
 #'
