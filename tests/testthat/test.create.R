@@ -16,8 +16,8 @@ model_Test = data.table::data.table(
 model_Comment = data.table::data.table(
   CommentID    = integer(),
   PersonID     = integer(),
-  data_time    = dbUpdateTable::date_time(),
-  comment_text = dbUpdateTable::long_text(),
+  data_time    = date_time(),
+  comment_text = long_text(),
   make_public  = logical(),
   key = "CommentID"
 )
