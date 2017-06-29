@@ -13,6 +13,7 @@ model_Test = data.table::data.table(
   key = "a"
 )
 
+# TODO: Make this model_CustomClasses to check all custom types parse fine
 model_Comment = data.table::data.table(
   CommentID    = integer(),
   PersonID     = integer(),
