@@ -18,7 +18,8 @@ model_Comment = data.table::data.table(
   CommentID    = integer(),
   PersonID     = integer(),
   data_time    = date_time(),
-  comment_text = long_text(),
+  comment_long = character_long(),
+  comment_text = text(),
   make_public  = logical(),
   key = "CommentID"
 )
@@ -33,9 +34,9 @@ test_table_name = "CREATE TABLE IF NOT EXISTS Test"
 test_variables = "a varchar\\(255\\), c int,"
 test_primary_key = "PRIMARY KEY\\(a\\)"
 
-comment_query       = "CREATE TABLE IF NOT EXISTS Comment ( CommentID int, PersonID int, data_time DATETIME, comment_text varchar(30000), make_public TINYINT, PRIMARY KEY(CommentID) );"
+comment_query       = "CREATE TABLE IF NOT EXISTS Comment ( CommentID int, PersonID int, data_time DATETIME, comment_long varchar(30000), comment_text text, make_public TINYINT, PRIMARY KEY(CommentID) );"
 comment_table_name  = "CREATE TABLE IF NOT EXISTS Comment"
-comment_variables   = "CommentID int, PersonID int, data_time DATETIME, comment_text varchar\\(30000\\), make_public TINYINT, PRIMARY KEY\\(CommentID\\)"
+comment_variables   = "CommentID int, PersonID int, data_time DATETIME, comment_long varchar\\(30000\\), comment_text text, make_public TINYINT, PRIMARY KEY\\(CommentID\\)"
 comment_primary_key = "PRIMARY KEY\\(CommentID\\)"
 
 
