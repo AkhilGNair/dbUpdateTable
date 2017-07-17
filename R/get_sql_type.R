@@ -42,14 +42,15 @@ add = function(dt, ...) {
 #' Current implemented datatype handling
 #' @importFrom magrittr "%>%"
 hash_datatypes = tibble::tribble(
-  ~r_type    ,         ~sql_type,
-  "Date"     ,            "date",
-  "character",    "varchar(255)",
-  "integer"  ,             "int",
-  "logical"  ,         "TINYINT",
-  "numeric"  ,  "decimal(10, 3)",
-  "POSIXt"   ,        "DATETIME",
-  "long_text",   "varchar(30000)"
+  ~r_type         ,         ~sql_type,
+  "Date"          ,            "date",
+  "character"     ,    "varchar(255)",
+  "integer"       ,             "int",
+  "logical"       ,         "TINYINT",
+  "numeric"       ,  "decimal(10, 3)",
+  "POSIXt"        ,        "DATETIME",
+  "character_long",  "varchar(30000)",
+  "text"          ,            "text"
 ) %>%
   data.table::setDT(.) %>%
   data.table::setkey("r_type")
