@@ -1,11 +1,20 @@
 #' SQL classes without a directly analogous R class
 
-#' Long text <=> VARCHAR(30000)
+#' character_long <=> VARCHAR(30000)
 #'
 #' @export
-long_text = function() {
+character_long = function() {
   str = character()
-  class(str) = "long_text"
+  class(str) = "character_long"
+  str
+}
+
+#' text <=> text
+#'
+#' @export
+text = function() {
+  str = character()
+  class(str) = "text"
   str
 }
 
