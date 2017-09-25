@@ -43,7 +43,7 @@ create = function(model, verbose = TRUE, ...) {
     stop("Model object name must be prefixed with 'model_', e.g. 'model_People'")
   }
   # Get table name to insert
-  str_table_name = stringr::str_extract(str_name, "(?<=model_)[[:alpha:]]+")
+  str_table_name = stringr::str_extract(str_name, "(?<=model_)[[:alpha:]_]+")
 
   # Get variables
   # Parse data.table to creat CREATE TABLE query
